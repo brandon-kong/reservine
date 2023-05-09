@@ -16,12 +16,12 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+
+.bg-land {
+  min-height: 200vh;
+  background: linear-gradient(180deg, rgba(var(--background-start-rgb), 1) 0%, rgba(var(--background-end-rgb), 1) 100%);
+}
+
+.drop-shadow-nav {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 3px 0px;
 }
