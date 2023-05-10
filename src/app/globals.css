@@ -18,8 +18,11 @@
 
 
 .bg-land {
-  min-height: 200vh;
-  background: linear-gradient(180deg, rgba(var(--background-start-rgb), 1) 0%, rgba(var(--background-end-rgb), 1) 100%);
+  padding-top: 60px;
+  min-height: 20vh;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
 }
 
 .drop-shadow-nav {

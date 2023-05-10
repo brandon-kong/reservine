@@ -36,7 +36,7 @@ export default function WithSubnavigation() {
         <Box className={`fixed top-0 w-full transition-all duration-300 ${scrolled ? 'drop-shadow-nav border-none' : 'drop-shadow-none'}`}>
             <Flex
                 bg={useColorModeValue('white', 'gray.800')}
-                color={useColorModeValue('gray.600', 'white')}
+                color={useColorModeValue('gray.700', 'white')}
                 minH={'60px'}
                 py={{ base: 2 }}
                 px={{ base: 4 }}
@@ -65,6 +65,7 @@ export default function WithSubnavigation() {
                         alt="Picture of the author"
                         width={50}
                         height={50}
+                        className={'dark:invert'}
                     />
 
                     <Flex alignItems={'center'} display={{ base: 'none', md: 'flex' }} ml={10}>
@@ -84,8 +85,8 @@ export default function WithSubnavigation() {
                         variant={'link'}
                         href={'#'}
                         _hover={{
-                        bg: 'gray.100',
-                        color: 'gray.900',
+                        bg: useColorModeValue('gray.50', 'gray.700'),
+                        color: useColorModeValue('gray.50', 'gray.50'),
                         }}
                         p={3}
                         >
@@ -96,14 +97,14 @@ export default function WithSubnavigation() {
                         display={{ base: 'none', md: 'inline-flex' }}
                         fontSize={'sm'}
                         fontWeight={600}
-                        color={'white'}
-                        bg={'black'}
+                        color={useColorModeValue('gray.50', 'black')}
+                        bg={useColorModeValue('gray.50', 'white')}
                         border={'1px solid transparent'}
                         href={'#'}
                         _hover={{
-                        bg: 'white',
-                        color: 'black',
-                        border: '1px solid black',
+                        bg: 'transparent',
+                        color: useColorModeValue('gray.50', 'gray.50'),
+                        border: `1px solid ${useColorModeValue('black', 'white')}`,
                         }}>
                         Sign Up
                     </Button>
@@ -118,7 +119,7 @@ export default function WithSubnavigation() {
 }
 
 const DesktopNav = () => {
-    const linkColor = useColorModeValue('gray.600', 'gray.200');
+    const linkColor = useColorModeValue('gray.700', 'gray.200');
     const linkHoverColor = useColorModeValue('gray.800', 'white');
     const popoverContentBgColor = useColorModeValue('white', 'gray.800');
 
@@ -137,8 +138,8 @@ const DesktopNav = () => {
                     rounded={'md'}
                     _hover={{
                     textDecoration: 'none',
-                    bg: 'gray.100',
-                    color: linkHoverColor,
+                    bg: useColorModeValue('gray.50', 'gray.700'),
+                    color: useColorModeValue('gray.50', 'gray.50'),
                     }}
                     >
                     {navItem.label}
@@ -180,7 +181,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
                 <Box>
                     <Text
                         transition={'all .3s ease'}
-                        _groupHover={{ color: 'gray.600' }}
+                        _groupHover={{ color: 'gray.700' }}
                         fontWeight={500}>
                         {label}
                     </Text>
@@ -194,7 +195,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
                 justify={'flex-end'}
                 align={'center'}
                 flex={1}>
-                    <Icon color={'gray.600'} w={5} h={5} as={ChevronRightIcon} />
+                    <Icon color={'gray.700'} w={5} h={5} as={ChevronRightIcon} />
                 </Flex>
             </Stack>
         </Link>
@@ -231,7 +232,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
             }}>
             <Text
             fontWeight={600}
-            color={useColorModeValue('gray.600', 'gray.200')}>
+            color={useColorModeValue('gray.700', 'gray.200')}>
             {label}
             </Text>
             {children && (
