@@ -33,17 +33,19 @@ export default function HeroFilter () {
             <Flex
             gap='5'
             direction={'column'}
-            align={'center'}
+            align={'flex-start'}
             justify={'center'}
             w='55%'
             >
                 <Text
-                w='full'
+                w='fit-content'
                 textAlign={'left'}
                 fontSize='6rem'
                 fontWeight={700}
-                color={'white'}
-                pl='10'
+                color={'var(--text-primary)'}
+                ml='10'
+                px='5'
+                bg='rgb(255,255,255,0.8)'
                 >
                     FIND
                 </Text>
