@@ -50,6 +50,7 @@ export default function Home() {
       <Stack
       px='20'
       py='10'
+      pb='20'
       color='var(--text-primary)'
       direction={'column'}
       gap='20'
@@ -82,10 +83,9 @@ export default function Home() {
         name='Property Rental Guides & Tips'
         />
       </Stack>
-
+      <Footer />
 
       
-      <Footer />
     </Flex>
   )
 }

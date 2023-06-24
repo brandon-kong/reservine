@@ -10,7 +10,7 @@ export default function Navbar() {
     return (
         <Flex
         top='0'
-        position={'fixed'}
+        position={'absolute'}
         bg={'var(--gray)'}
         backdropFilter={'blur(20px)'}
         w='full'
