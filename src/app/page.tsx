@@ -3,14 +3,20 @@
 import Navbar from '../components/Navbar'
 
 import HeroFilter from '../components/HeroFilter';
-import PropertyCard from '../components/PropertyCard';
+import CardDisplay from '../components/CardDisplay';
+import InfoCard from '../components/InfoCard';
+import BlogDisplay from '../components/BlogDisplay';
+import Footer from '../components/Footer';
 import HeroImg from '@/../public/images/hero-cover-3.jpeg'
+import HeroImg2 from '@/../public/images/hero-cover-2.jpeg'
+import HeroImg4 from '@/../public/images/hero-cover-4.jpeg'
 
 import {
   Flex,
   Image,
+  Stack,
   Heading,
-  Divider,
+  Text,
 } from "@chakra-ui/react";
 
 export default function Home() {
@@ -40,60 +46,46 @@ export default function Home() {
         <HeroFilter />
         
       </Flex>
-      <Flex
+      
+      <Stack
       px='20'
       py='10'
       color='var(--text-primary)'
       direction={'column'}
-      gap='10'
+      gap='20'
       >
-        <Heading>
-          Explore Nearby
-          <Divider
-          mt='5'
-          mb='5'
-          w='10%'
-          h='.25rem'
-          bg='#000'
-          rounded='full'
-          />
-        </Heading>
-        <Flex
-        gap='10'
-        >
-          <PropertyCard />
-          <PropertyCard />
-          <PropertyCard />
-          <PropertyCard />
-        </Flex>
-      </Flex>
-      <Flex
-      px='20'
-      py='10'
-      color='var(--text-primary)'
-      direction={'column'}
-      gap='10'
-      >
-        <Heading>
-          Top Rated
-          <Divider
-          mt='5'
-          mb='5'
-          w='10%'
-          h='.25rem'
-          bg='#000'
-          rounded='full'
-          />
-        </Heading>
-        <Flex
-        gap='10'
-        >
-          <PropertyCard />
-          <PropertyCard />
-          <PropertyCard />
-          <PropertyCard />
-        </Flex>
-      </Flex>
+        <CardDisplay 
+        name='Explore Nearby'
+        />
+        <CardDisplay
+        name='Top Rated'
+        />
+
+        <InfoCard
+        header='Try Hosting With Us'
+        subtext='Earn extra just by renting your property...'
+        action='Become a Host'
+        img={HeroImg2.src}
+        />
+     
+        <CardDisplay 
+        name='Featured Properties'
+        />
+
+        <InfoCard
+        header='Browse For More Properties'
+        subtext='Explore properties by their categories/types...'
+        action='Find A Property'
+        img={HeroImg4.src}
+        />
+        <BlogDisplay
+        name='Property Rental Guides & Tips'
+        />
+      </Stack>
+
+
+      
+      <Footer />
     </Flex>
   )
 }
