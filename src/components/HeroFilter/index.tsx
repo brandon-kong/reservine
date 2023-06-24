@@ -29,8 +29,7 @@ const FilterTypes = [
 
 export default function HeroFilter () {
     return (
-        <>
-            <Flex
+        <Flex
             gap='5'
             direction={'column'}
             align={'flex-start'}
@@ -112,9 +111,6 @@ export default function HeroFilter () {
                     </Flex>
                     
                 </Flex>
-            </Flex>
-            
-        </>
-       
+            </Flex>       
     )
 }

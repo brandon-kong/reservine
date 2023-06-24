@@ -1,6 +1,7 @@
 'use client';
 
 import Navbar from '../components/Navbar'
+import NewNavbar from '../components/NewNav';
 
 import HeroFilter from '../components/HeroFilter';
 import CardDisplay from '../components/CardDisplay';
@@ -25,7 +26,7 @@ export default function Home() {
     direction={'column'}
     gap='5'
     >
-      <Navbar />
+      <NewNavbar />
       <Flex
       position='relative'
       align={'flex-end'}
@@ -35,6 +36,7 @@ export default function Home() {
       >
         <Image
         filter={'grayscale(100%)'}
+        userSelect={'none'}
         top='0'
         position='absolute'
         src={HeroImg.src}

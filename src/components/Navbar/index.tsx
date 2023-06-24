@@ -1,6 +1,10 @@
 import {
     Flex,
     Heading,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
 } from "@chakra-ui/react";
 
 import Avatar from "../Avatar";
@@ -43,7 +47,24 @@ export default function Navbar() {
                     >Become a Host</PrimaryButton>
                 </Flex>
             </Flex>
-            <Avatar />
+            <Menu>
+                <MenuButton
+                as={PrimaryButton}
+                rounded={'full'}
+                variant={'link'}
+                cursor={'pointer'}
+                >
+                    <Avatar />
+                </MenuButton>
+                <MenuList
+                bg='white'
+                color='var(--text-primary)'
+                >
+                    <MenuItem bg='inherit'>Link 1</MenuItem>
+                    <MenuItem bg='inherit'>Link 2</MenuItem>
+                    <MenuItem bg='inherit'>Link 3</MenuItem>
+                </MenuList>
+            </Menu>
         </Flex>
     )
 }
