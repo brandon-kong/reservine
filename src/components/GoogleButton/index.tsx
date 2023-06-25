@@ -14,9 +14,10 @@ export default function GoogleButton( props: Props ) {
             _hover={{ bg: 'var(--gray-transparent)' }}
             _active={{ bg: 'var(--gray)' }}
             h={12} fontWeight={'normal'} variant={'outline'} w='full'
-            borderColor={'var(--color-primary)'} color={useColorModeValue('black', 'white')}
+            borderColor={'var(--color-primary)'}
+            rounded='full'
         >
-            <Flex w='full' justify='center' align='center' gap='2' px='8' py='3' rounded={'lg'} >
+            <Flex w='full' justify='center' align='center' gap='2' px='8' py='3' rounded={'full'} >
                 <Center>
                 <Icon as={FcGoogle} w={8} h={8} />
                 </Center>

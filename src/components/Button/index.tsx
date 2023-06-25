@@ -11,8 +11,9 @@ export default function PrimaryButton ( props: any ) {
         py='5'
         fontWeight={600}
 
-        _hover={{ bg: 'var(--color-primary)' }}
-        _active={{ bg: 'var(--color-primary)' }}
+        color={'white'}
+        _hover={{ bg: 'var(--color-primary-dark)' }}
+        _active={{ bg: 'var(--color-primary-dark)' }}
         {...props}
         >
             {props.children}

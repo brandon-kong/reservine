@@ -2,6 +2,7 @@ import {
     Flex,
     Text,
     Divider,
+    Box,
 } from '@chakra-ui/react'
 
 import { PrimaryIconButton } from '../Button'
@@ -10,18 +11,22 @@ import { SearchIcon } from '@chakra-ui/icons'
 
 const FilterTypes = [
     {
+        id: 1,
         name: 'Location',
         subtext: 'Where are you going?',
     },
     {
+        id: 2,
         name: 'Check in',
         subtext: 'Add dates',
     },
     {
+        id: 3,
         name: 'Check out',
         subtext: 'Add dates',
     },
     {
+        id: 4,
         name: 'Guests',
         subtext: 'Add guests',
     },
@@ -67,15 +72,17 @@ export default function HeroFilter () {
                     justify='center'
                     >
                     {FilterTypes.map((filter, index) => (
-                        <>
+                        <Box
+                        w='full'
+                        key={filter.id}
+                        >
                         <Flex
-                        key={index}
-                        align='flex-start'
-                        justify='center'
-                        flexDirection='column'
-                        w='fit-content'
+                        
+                        w='full'
+                        direction='column'
                         >
                             <Text
+                            textAlign={'left'}
                             fontSize='sm'
                             >
                                 {filter.name}
@@ -98,7 +105,7 @@ export default function HeroFilter () {
                             />
 
                         }
-                        </>
+                        </Box>
                         
                     ))}
                     

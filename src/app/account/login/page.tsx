@@ -16,6 +16,9 @@ import {
     Fade
   } from '@chakra-ui/react';
 
+  import NewNavbar from '@/components/NewNav';
+
+  import { ValidateEmail } from '@/util/form/email';
 
 import GoogleButton from '@/components/GoogleButton';
 import FloatingInput from '@/components/FloatingInput';
@@ -36,6 +39,8 @@ export default function SplitScreen() {
 
     const [step, setStep] = useState(0)
 
+    const [step0EmailValid, setStep0EmailValid] = useState(true)
+
     let defaultBody = {
         grant_type: "",
         email: "",
@@ -50,6 +55,13 @@ export default function SplitScreen() {
         e.preventDefault()
         switch (step) {
             case 0:
+                if (emailOrPhone === 'email') {
+                    if (!ValidateEmail(identifier)) {
+                        setStep0EmailValid(false)
+                        return
+                    }
+                }
+                setStep0EmailValid(true)
                 fetchUserWithCredentials(defaultBody)
                 break;
             case 1:
@@ -60,7 +72,8 @@ export default function SplitScreen() {
 
       function fetchUserWithCredentials (body: any) {
         setLoading(true)
-        setIsReturningUser(true)
+        setIsReturningUser(false)
+        setIdentifierSet(true)
         setLoading(false)
         setStep(1)
       }
@@ -80,7 +93,7 @@ export default function SplitScreen() {
    
     return (
         <>
-        <Stack bg={'white'} color='var(--text-primary)' minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
+        <Stack bg={'white'} color='var(--text-primary)' h={'100vh'} direction={{ base: 'column', md: 'row' }}>
             <Flex p={8} flex={1} align={'center'} justify={'center'}>
                 <Stack px={{ base: '8', md: '8' }} spacing={10} w={'full'} maxW={'md'}>
                     
@@ -88,14 +101,24 @@ export default function SplitScreen() {
                     <SlideFade
                     in={identifierSet}>
                         <Icon 
+                        rounded='full'
+                        _hover={{ bg: 'var(--gray-transparent)' }}
                         cursor={'pointer'}
+                        p='2'
+                        transition={'all .2s ease-in-out'}
                         onClick={() => {setIdentifierSet(false); backstep()}}
-                        as={ArrowBackIcon} w={8} h={8} />
+                        as={ArrowBackIcon} w={12} h={12} />
                     </SlideFade>
-                    <Stack direction={'column'} textAlign={{ base: 'center', md: 'left' }}  spacing={2}>
-                        <Heading fontSize={'2xl'}>Get back into the action</Heading>
-                        <Text color={'gray.500'}>Learn. Invest. Host. Today.</Text>
-                    </Stack>
+                    {
+                        identifierSet ?
+                        <></>
+                        :
+                        <Stack direction={'column'} textAlign={{ base: 'center', md: 'left' }}  spacing={2}>
+                            <Heading fontSize={'2xl'}>Get back into the action</Heading>
+                            <Text color={'gray.500'}>Learn. Invest. Host. Today.</Text>
+                        </Stack>
+                    }
+                    
                     
                     <Stack as={'form'} onSubmit={submitHandler} direction={'column'} spacing={6}>
 
@@ -103,23 +126,48 @@ export default function SplitScreen() {
                         direction={'column'}
                         gap={'6'}
                         >
+                            
                             {
                             identifierSet ?
                             <>
+                            {
+                                isReturningUser === true ?
+                                <><Heading size='md' fontWeight={'700'}>Welcome back, name</Heading></>
+                                :
+                                <><Heading size='md' fontWeight={'700'}>Create account</Heading></>
+                            }
                             <Fade
                             in={true}
                             >
-                                <FloatingInput isDisabled={true} value={emailAddress} onChange={(e: any) => setEmailAddress(e.target.value)} name='email' label='Email address' type='text' />
+                              { isReturningUser === true ? (
+                                
+                                emailOrPhone === 'email' ?
+                                <FloatingInput isDisabled={true} value={identifier} onChange={(e: any) => setIdentifier(e.target.value)} name='identifier' label='Email address' type='text' />
+                                :
+                                <FloatingInput isDisabled={true}  value={identifier} onChange={(e: any) => setIdentifier(e.target.value)} name='identifier' label='Phone number' type='tel' />
+                                
+                            ) : (
+                                emailOrPhone === 'email' ?
+                                <FloatingInput isDisabled={false} value={identifier} onChange={(e: any) => setIdentifier(e.target.value)} name='identifier' label='Email address' type='text' />
+                                :
+                                <FloatingInput isDisabled={false}  value={identifier} onChange={(e: any) => setIdentifier(e.target.value)} name='identifier' label='Phone number' type='tel' />
+                            )}
                             </Fade>
                             
                             <FloatingInput onChange={(e: any) => setPassword(e.target.value)} isPassword={true} name='password' label='Password' />    
+                            {
+                                isReturningUser === true ?
+                                <></>
+                                :
+                                <FloatingInput onChange={(e: any) => setPassword(e.target.value)} isPassword={true} name='password' label='Confirm password' />
+                            }
                             </>
                             
                             :
                             (
                                 
                                 emailOrPhone === 'email' ?
-                                <FloatingInput value={identifier} onChange={(e: any) => setIdentifier(e.target.value)} name='identifier' label='Email address' type='text' />
+                                <FloatingInput value={identifier} isError={!step0EmailValid} errorMessage={'Email is invalid'} onChange={(e: any) => setIdentifier(e.target.value)} name='identifier' label='Email address' type='text' />
                                 :
                                 <FloatingInput value={identifier} onChange={(e: any) => setIdentifier(e.target.value)} name='identifier' label='Phone number' type='tel' />
                                 
@@ -127,12 +175,16 @@ export default function SplitScreen() {
                             
                             }
                             {
-                            identifierSet ?
-                            <Link>
+                            (identifierSet && isReturningUser) ?
+                            <Link
+                            w='fit-content'
+                            >
                                 Forgot password?
                             </Link>
                             :
-                            <Link
+                            (identifierSet) ?
+                            (<Link
+                            w='fit-content'
                             onClick={toggleEmailOrPhone}
                             >
                                 {
@@ -141,15 +193,27 @@ export default function SplitScreen() {
                                     :
                                     'Use email instead'
                                 }
-                            </Link>
+                            </Link>)
+                            : (<Link
+                                w='fit-content'
+                                onClick={toggleEmailOrPhone}
+                                >
+                                    {
+                                        emailOrPhone === 'email' ?
+                                        'Use phone number instead'
+                                        :
+                                        'Use email instead'
+                                    }
+                                </Link>)
                             }
                             
                         </Flex>
                         
                         <Stack spacing={6}>
                             <PrimaryButton 
-                            onClick={() => {setIdentifierSet(true)}}
-                            h={12} type={'submit'} isLoading={loading}>
+                            type='submit'
+                            onClick={submitHandler}
+                            h={12} isLoading={loading}>
                                 Next
                             </PrimaryButton>
                             <OrSeperator />
