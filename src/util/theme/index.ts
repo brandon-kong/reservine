@@ -1,5 +1,5 @@
 import { extendTheme, type ThemeConfig } from '@chakra-ui/react'
-
+import { checkboxTheme } from './Checkbox'
 import Menu from './Menu'
 
 // 2. Add your color mode config
@@ -14,22 +14,7 @@ const theme = extendTheme({
     heading: 'inherit',
   }, 
   components: {
-    MenuList: {
-      baseStyle: {
-        bg: 'white',
-      },
-      defaultProps: {
-        bg: 'white',
-      }
-    },
-    MenuItem: {
-      baseStyle: {
-        bg: 'white',
-      },
-      defaultProps: {
-        bg: 'white',
-      }
-    }
+    Checkbox: checkboxTheme,
 
   },
   config

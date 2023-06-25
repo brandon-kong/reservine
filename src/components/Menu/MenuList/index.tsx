@@ -5,6 +5,8 @@ import {
     MenuDivider,
 } from "@chakra-ui/react";
 
+import Link from 'next/link';
+
 import { ReactNode } from 'react';
 
 const MenuItem = ( props: any ) => (
@@ -61,8 +63,8 @@ export function AnonymousMenu ( props: any ) {
         color='var(--text-primary)'
         >
                 
-            <MenuItem fontWeight={600}>Sign Up</MenuItem>
-            <MenuItem fontWeight={500}>Login</MenuItem>
+            <MenuItem as={Link} href='/account/login' fontWeight={600}>Sign Up</MenuItem>
+            <MenuItem as={Link} href='/account/login' fontWeight={500}>Login</MenuItem>
             <MenuItem fontWeight={500}>Help Center</MenuItem>
         </MenuList>
     )
