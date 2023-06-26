@@ -4,7 +4,7 @@ import {
   Flex,
   Avatar as ChakraAvatar,
   HStack,
-  Link,
+  Link as ChakraLink,
   IconButton,
   Button,
   Menu,
@@ -29,19 +29,7 @@ const Links = ['Dashboard', 'Projects', 'Team'];
 
 import { SignedInMenu, AnonymousMenu } from '../Menu/MenuList';
 
-const NavLink = ({ children }: { children: ReactNode }) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={'md'}
-    _hover={{
-      textDecoration: 'none',
-      bg: useColorModeValue('gray.200', 'gray.700'),
-    }}
-    href={'#'}>
-    {children}
-  </Link>
-);
+import Link from 'next/link';
 
 export default function Simple() {
 
@@ -77,9 +65,11 @@ export default function Simple() {
                     <h1>Rental Guides</h1>
                     <h1>Reviews</h1>
                     <PrimaryButton
+                    as={Link}
                     py='5'
                     px='7'
                     fontSize='inherit'
+                    href='/host'
                     >Become a Host</PrimaryButton>
                 </Flex>
                 

@@ -1,7 +1,9 @@
 import { 
     Button as ChakraButton,
     IconButton as ChakraIconButton,
+    Icon,
 } from '@chakra-ui/react'
+import Link from 'next/link'
 
 export default function PrimaryButton ( props: any ) {
     return (
@@ -74,5 +76,19 @@ export function OutlineButton ( props: any ) {
         >
             {props.children}
         </ChakraButton>
+    )
+}
+
+export function SocialButton ( props: any ) {
+    return (
+        <Link
+        href={ props.href}
+        >
+            <Icon
+            as={props.icon}
+            {...props}
+            />
+        </Link>
+
     )
 }

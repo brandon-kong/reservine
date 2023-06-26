@@ -14,12 +14,13 @@ import React, { useState } from 'react';
 import {
     Box, 
     Icon,
+    Textarea,
     Button, InputGroup, InputRightElement, Input, FormControl, FormErrorMessage, FormLabel, useColorModeValue } from "@chakra-ui/react";
 import PrimaryButton, { PrimaryIconButton } from '../Button';
 
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 
-export default function FloatingLabel ( props: Props ) {
+export default function FloatingLabel ( props: any ) {
     const [show, setShow] = useState(false)
     const [errorMessage, setErrorMessage] = useState(props.errorMessage || '')
     const handleClick = () => setShow(!show)
@@ -68,5 +69,29 @@ export default function FloatingLabel ( props: Props ) {
             
             
         </FormControl>
+    )
+}
+
+export function TextArea ( props: any ) {
+    return (
+        <Textarea
+        placeholder={props.label || ''}
+        bg={'var(--gray)'}
+        _focus={{
+            borderWidth: '2px',
+            borderColor: 'var(--color-primary)',
+            bg: 'white',
+            outline: 'none',
+            boxShadow: 'none'
+        }}
+        _placeholder={{
+            color: 'var(--text-primary)'
+        }}
+        value={props.value}
+        onChange={props.onChange}
+        rounded={'lg'}
+
+        {...props}
+        />
     )
 }
