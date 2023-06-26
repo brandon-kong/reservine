@@ -57,3 +57,22 @@ export function PrimaryIconButton ( props: any ) {
         </ChakraIconButton>
     )
 }
+
+export function OutlineButton ( props: any ) {
+    return (
+        <ChakraButton
+        rounded='full'
+        bg='transparent'
+        py='5'
+        fontWeight={600}
+        color='var(--color-primary)'
+
+        border='1px solid var(--color-primary)'
+        _hover={{ bg: 'var(--gray)' }}
+        _active={{ bg: 'var(--gray)' }}
+        {...props}
+        >
+            {props.children}
+        </ChakraButton>
+    )
+}

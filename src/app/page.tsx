@@ -22,14 +22,16 @@ import {
 
 export default function Home() {
   return (
+    <>
+    <NewNavbar />
     <Flex
     direction={'column'}
     gap='5'
     >
-      <NewNavbar />
+      
       <Flex
       position='relative'
-      align={'flex-end'}
+      align={'center'}
       justify={'center'}
       h='100vh'
       py={'4.75rem'}
@@ -89,5 +91,6 @@ export default function Home() {
 
       
     </Flex>
+    </>
   )
 }

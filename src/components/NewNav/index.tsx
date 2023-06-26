@@ -51,7 +51,7 @@ export default function Simple() {
         
         <Flex
         bg={'var(--gray)'}
-        position={'absolute'}
+        position={'relative'}
         backdropFilter={'blur(20px)'}
         w='full'
         h='59px'
