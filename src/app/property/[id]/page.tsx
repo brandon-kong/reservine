@@ -15,6 +15,8 @@ import { LuUtensilsCrossed } from "react-icons/lu";
 import { TbWashMachine } from "react-icons/tb";
 import { MdOutlineBalcony, MdSmokeFree, MdOutlineCleaningServices } from "react-icons/md";
 
+import { StarIcon } from "@chakra-ui/icons";
+
 const Overview = {
     bedroom: {number: 3, icon: BiBed},
     bathroom: {number: 2, icon: BiBath},
@@ -35,8 +37,11 @@ import {
     Flex,
     Icon,
 } from "@chakra-ui/react";
-import { OutlineButton } from "@/components/Button";
+import PrimaryButton, { OutlineButton } from "@/components/Button";
 import Map from "@/components/Map";
+import ServiceCard from "@/components/ServiceCard";
+import ReviewBar from "@/components/ReviewBar";
+import ReviewCard from "@/components/ReviewCard";
 
 type Params = {
     params: {
@@ -101,6 +106,7 @@ export default function PropertyDashboard ({ params }: Params) {
             display='flex'
             flexDir='column'
             gap={'14'}
+            pb={'32'}
             >
                
 
@@ -122,7 +128,7 @@ export default function PropertyDashboard ({ params }: Params) {
 
                 <Flex
                 direction={'column'}
-                flex='3'
+                flex='5'
                 gap={'10'}
                 >
 
@@ -218,6 +224,10 @@ export default function PropertyDashboard ({ params }: Params) {
                             >
                                 Offered Amenities
                             </Heading>
+                            <Flex
+                            direction={'column'}
+                            gap={'8'}
+                            >
                             <Grid
                             templateColumns={'repeat(2, 1fr)'}
                             gap={4}
@@ -258,12 +268,13 @@ export default function PropertyDashboard ({ params }: Params) {
                                     icon={MdOutlineBalcony}
                                     />
                                 </GridItem>
-                                <GridItem>
-                                    <OutlineButton>
-                                        View all 10 Amenities
-                                    </OutlineButton>
-                                </GridItem>
                             </Grid>
+                                <OutlineButton
+                                w={'15.125rem'}
+                                >
+                                    View all 10 Amenities
+                                </OutlineButton>
+                            </Flex>
                            
                                 
 
@@ -316,26 +327,160 @@ export default function PropertyDashboard ({ params }: Params) {
                             />
                          </Box>
                          
-                          <Flex
+                        <Flex
+                        gap={'6'}
+                        direction={'column'}
+                        >
+                            <Heading
+                            fontSize='xl'
+                            >
+                                Nearby Services
+                            </Heading>
+                            <Flex
+                            gap={'2'}
+                            >
+                                <ServiceCard
+                                title={'Grill Restro & Bar'}
+                                description={'100 meters away'}
+                                rating={4}
+                                />
+                                    <ServiceCard
+                                title={'Grill Restro & Bar'}
+                                description={'100 meters away'}
+                                rating={3}
+                                />
+                                    <ServiceCard
+                                title={'Grill Restro & Bar'}
+                                description={'100 meters away'}
+                                rating={4}
+                                />
+                            </Flex>
+                            <PrimaryButton
+                            w={'11.8125rem'}
+                            >
+                                Show on Map
+                            </PrimaryButton>
+                        </Flex>
+                        <Flex
                             gap={'6'}
                             direction={'column'}
                             >
                                 <Heading
                                 fontSize='xl'
                                 >
-                                    Nearby Services
-                                </Heading>
-                                <Flex>
-                                    <Flex>
-                                        <Text
-                                        fontWeight={'600'}
-                                        >
-                                            Grill Restro & Bar
+                                    <Flex
+                                    gap={'4'}
+                                    >
+                                        <Text>
+                                            Reviews
                                         </Text>
+                                        <Flex
+                                        gap={'4'}
+                                        >
+                                            <Icon as={StarIcon} color={'var(--color-primary)'} />
+                                            <Text>5.0</Text>
+                                        </Flex>
+                                    </Flex>
+                                </Heading>
+                                <Flex
+                                direction={'column'}
+                                gap={'14'}
+                                >
+                                    <Grid
+                                    templateColumns={'repeat(2, 1fr)'}
+                                    gap={4}
+                                    columnGap={10}
+                                    >
+                                        <GridItem>
+                                            <ReviewBar
+                                            title={'Amenities'}
+                                            value={40}
+                                            rating={'3.0'}
+                                            />
+                                        </GridItem>
+                                        <GridItem>
+                                            <ReviewBar
+                                            title={'Cleanliness'}
+                                            value={100}
+                                            rating={'5.0'}
+                                            />
+                                        </GridItem>
+                                        <GridItem>
+                                            <ReviewBar
+                                            title={'Communication'}
+                                            value={100}
+                                            rating={'5.0'}
+                                            />
+                                        </GridItem>
+                                        <GridItem>
+                                            <ReviewBar
+                                            title={'Value for Money'}
+                                            value={100}
+                                            rating={'5.0'}
+                                            />
+                                        </GridItem>
+                                        <GridItem>
+                                            <ReviewBar
+                                            title={'Location'}
+                                            value={100}
+                                            rating={'5.0'}
+                                            />
+                                        </GridItem>
+                                    </Grid>
+                                    <Flex
+                                    direction={'column'}
+                                    gap={'8'}
+                                    >
+
+                                    <Grid
+                                    templateColumns={'repeat(2, 1fr)'}
+                                    gap={10}
+                                    rowGap={14}
+                                    >
+                                        <GridItem>
+                                        <ReviewCard
+                                            name={'John Doe'}
+                                            date={'Mar 12, 2022'}
+                                            review={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
+                                            rating={4}
+                                            />
+                                        </GridItem>
+                                        <GridItem>
+                                            <ReviewCard
+                                            name={'John Doe'}
+                                            date={'Mar 12, 2022'}
+                                            review={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
+                                            rating={1}
+                                            />
+                                        </GridItem>
+                                        <GridItem>
+                                            <ReviewCard
+                                            name={'John Doe'}
+                                            date={'Mar 12, 2022'}
+                                            review={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
+                                            rating={3}
+                                            />
+                                        </GridItem>
+                                        <GridItem>
+                                        <ReviewCard
+                                            name={'John Doe'}
+                                            date={'Mar 12, 2022'}
+                                            review={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
+                                            rating={2}
+                                            />
+                                        </GridItem>
+                                        
+                                    </Grid>
+
+                                        <OutlineButton
+                                        w={'15.125rem'}
+                                        >
+                                            View all 10 Reviews
+                                        </OutlineButton>
                                     </Flex>
                                 </Flex>
                             </Flex>
-                         </Flex>
+                        </Flex>
                     </Flex>
                     
                     <Flex

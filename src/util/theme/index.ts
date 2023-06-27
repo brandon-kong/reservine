@@ -23,6 +23,14 @@ const theme = extendTheme({
       }
     }
   },
+  colors: {
+    primary: {
+      50: 'var(--text-primary)',
+      100: 'var(--text-primary)',
+      200: 'var(--text-primary)',
+      300: 'var(--text-primary)',
+    }
+  },
   config
 })
 
