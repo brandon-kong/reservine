@@ -180,7 +180,9 @@ export default function FindProperty () {
                 <Box
                 w='full'
                 >
-                    <Map />
+                    <Map
+                    minH='90vh'
+                    />
                 </Box>
                 
             </Box>

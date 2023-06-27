@@ -10,13 +10,9 @@ import {
     Text,
     Image,
     Icon,
-    IconButton,
-    Button,
     SlideFade,
     Fade
   } from '@chakra-ui/react';
-
-  import NewNavbar from '@/components/Navbar';
 
   import { ValidateEmail } from '@/util/form/email';
 
