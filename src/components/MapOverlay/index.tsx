@@ -10,9 +10,13 @@ import {
 import { BiBed, BiBath, BiCar } from "react-icons/bi";
 import { PiPawPrintBold } from "react-icons/pi";
 
+import Link from 'next/link'
+
+
 export default function MapOverlay ( props: any ) {
     return (
         <Flex
+        as={Link}
         bg='white'
         rounded={'md'}
         overflow={'hidden'}
@@ -25,6 +29,8 @@ export default function MapOverlay ( props: any ) {
             transform: 'scale(1.1)',
         }}
         zIndex={'10'}
+
+        href={`/property/${props.id || '1234'}`}
         >
             <Image
             src='https://www.placehold.it/200x200'

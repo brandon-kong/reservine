@@ -5,6 +5,8 @@ import { Box } from '@chakra-ui/react'
 
 mapboxgl.accessToken = "pk.eyJ1IjoiYnJhbmRvbmtvbmciLCJhIjoiY2xqZGZlMWJwMjFtNzNlczFsNnN5Ym42OSJ9.U_Q0fLrXBTnWwLMqaoFtMw"
 
+import 'mapbox-gl/dist/mapbox-gl.css';
+
 export default function Map (props: any) {
     const map: any = useRef(null);
     const mapContainer = useRef(null);

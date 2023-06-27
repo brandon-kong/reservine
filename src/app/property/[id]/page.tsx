@@ -42,6 +42,8 @@ import Map from "@/components/Map";
 import ServiceCard from "@/components/ServiceCard";
 import ReviewBar from "@/components/ReviewBar";
 import ReviewCard from "@/components/ReviewCard";
+import ReserveCard from "@/components/ReserveCard";
+import StickyBox from "react-sticky-box";
 
 type Params = {
     params: {
@@ -483,11 +485,20 @@ export default function PropertyDashboard ({ params }: Params) {
                         </Flex>
                     </Flex>
                     
-                    <Flex
-                    flex='2'
-                    >
-                        Hello
-                    </Flex>
+
+                        <Box
+                        flex={'2'}
+                        
+                        >
+                            <StickyBox
+                            offsetTop={40}
+                            >
+                                <ReserveCard />
+                            </StickyBox>
+                            
+                            
+                        </Box>
+                    
                 </Flex>
                 
             </NewContainer>
