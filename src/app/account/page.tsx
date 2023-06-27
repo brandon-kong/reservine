@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import NewContainer from '@/components/Container';
-import NewNav from '@/components/NewNav';
+import NewNav from '@/components/Navbar';
 
 import Footer from '@/components/Footer';
 

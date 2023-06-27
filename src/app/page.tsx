@@ -1,7 +1,7 @@
 'use client';
 
 import Navbar from '../components/Navbar'
-import NewNavbar from '../components/NewNav';
+import NewNavbar from '../components/Navbar';
 
 import HeroFilter from '../components/HeroFilter';
 import CardDisplay from '../components/CardDisplay';

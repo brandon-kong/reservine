@@ -1,6 +1,6 @@
 'use client';
 
-import NewNav from '@/components/NewNav';
+import NewNav from '@/components/Navbar';
 import {
     Flex,
     Image,

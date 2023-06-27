@@ -1,21 +1,45 @@
+import { ReactNode } from 'react';
 import {
-    Flex,
-    Heading,
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuList,
-} from "@chakra-ui/react";
+  Box,
+  Flex,
+  Avatar as ChakraAvatar,
+  HStack,
+  Link as ChakraLink,
+  IconButton,
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
+  useDisclosure,
+  useColorModeValue,
+  Heading,
+  Stack,
+  MenuGroup,
+  Collapse,
+} from '@chakra-ui/react';
+import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
-import Avatar from "../Avatar";
-import PrimaryButton from "../Button";
+import Avatar from '../Avatar';
+
+import PrimaryButton from '../Button';
+
+const Links = ['Dashboard', 'Projects', 'Team'];
+
+import { SignedInMenu, AnonymousMenu } from '../Menu/MenuList';
+
+import Link from 'next/link';
 
 export default function Navbar() {
-    return (
+
+    const loggedIn = false;
+  return (
+    <>
+        
         <Flex
-        top='0'
-        position={'absolute'}
         bg={'var(--gray)'}
+        position={'relative'}
         backdropFilter={'blur(20px)'}
         w='full'
         h='59px'
@@ -36,35 +60,43 @@ export default function Navbar() {
                 gap='10'
                 fontWeight={'600'}
                 >
-                    <h1>Find a Property</h1>
-                    <h1>Share Stories</h1>
-                    <h1>Rental Guides</h1>
-                    <h1>Reviews</h1>
+                    <ChakraLink as={Link} href='/find'>
+                      Find a Property
+                    </ChakraLink>
+                    <ChakraLink as={Link} href='/find'>
+                      Share Stories
+                    </ChakraLink>
+                    <ChakraLink as={Link} href='/find'>
+                      Rental Guides
+                    </ChakraLink>
+                    <ChakraLink as={Link} href='/find'>
+                      Reviews
+                    </ChakraLink>
                     <PrimaryButton
+                    as={Link}
                     py='5'
                     px='7'
                     fontSize='inherit'
+                    href='/host'
                     >Become a Host</PrimaryButton>
                 </Flex>
+                
             </Flex>
             <Menu>
-                <MenuButton
-                as={PrimaryButton}
+              <MenuButton
+                as={Flex}
                 rounded={'full'}
-                variant={'link'}
                 cursor={'pointer'}
-                >
-                    <Avatar />
-                </MenuButton>
-                <MenuList
-                bg='white'
-                color='var(--text-primary)'
-                >
-                    <MenuItem bg='inherit'>Link 1</MenuItem>
-                    <MenuItem bg='inherit'>Link 2</MenuItem>
-                    <MenuItem bg='inherit'>Link 3</MenuItem>
-                </MenuList>
+                minW={0}>
+                <Avatar/>
+              </MenuButton>
+              {
+                    loggedIn ? <SignedInMenu /> : <AnonymousMenu />
+              }
             </Menu>
         </Flex>
-    )
+
+        
+    </>
+  );
 }

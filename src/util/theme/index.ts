@@ -15,7 +15,13 @@ const theme = extendTheme({
   }, 
   components: {
     Checkbox: checkboxTheme,
-
+  },
+  styles: {
+    global: {
+      body: {
+        color: 'var(--text-primary)',
+      }
+    }
   },
   config
 })

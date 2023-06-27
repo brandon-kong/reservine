@@ -52,7 +52,7 @@ const SocialButton = ({
   );
 };
 
-export default function LargeWithAppLinksAndSocial() {
+export default function Footer() {
   return (
     <Box
       bg={'var(--gray)'}

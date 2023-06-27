@@ -16,7 +16,7 @@ import {
     Fade
   } from '@chakra-ui/react';
 
-  import NewNavbar from '@/components/NewNav';
+  import NewNavbar from '@/components/Navbar';
 
   import { ValidateEmail } from '@/util/form/email';
 
