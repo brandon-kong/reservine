@@ -10,6 +10,8 @@ import { PiPawPrintBold } from "react-icons/pi";
 
 import ResultQueryCard from "@/components/ResultQueryCard";
 
+import StickyBox from "react-sticky-box";
+
 import {
     Heading,
     Flex,
@@ -21,6 +23,7 @@ import {
 import { OutlineButton } from "@/components/Button";
 
 import { BiSlider } from "react-icons/bi";
+import MapOverlay from "@/components/MapOverlay";
 
 export default function FindProperty () {
     return (
@@ -72,118 +75,46 @@ export default function FindProperty () {
             <Box
             flex='1'
             position={'relative'}
+            w='full'
             
             >
+
+                <StickyBox
+                style={{
+                    zIndex: 10
+                }}
+                >
                 <Flex
                 w='full'
-                h='90vh'
-                position={'absolute'}
+                p={'7'}
                 pointerEvents={'none'}
                 pb={'32'}
+                position={'absolute'}
                 
 
-                justify={'center'}
+                justify={'flex-end'}
                 align={'flex-end'}
                 >
-                    <Flex
-                    bg='white'
-                    rounded={'md'}
-                    overflow={'hidden'}
-                    boxShadow={'md'}
-                    h='fit-content'
-                    pointerEvents={'all'}
-                    transition={'all .2s ease-in-out'}
-                    cursor={'pointer'}
-                    _hover={{
-                        transform: 'scale(1.1)',
-                    }}
-                    >
-                        <Image
-                        src='https://www.placehold.it/200x200'
-                        bg='white'
-                        roundedLeft={'md'}
-                        h='28'
-                        w='28'
-                        />
-                        <Flex
-                        direction={'column'}
-                        p='5'
-                        gap='1'
-                        >
-                            <Heading
-                            size='sm'
-                            >
-                                1234 Main St
-                            </Heading>
-                            <Text
-                            fontSize='sm'
-                            color={'var(--text-secondary)'}
-                            >
-                                100 Smart Street, Chicago, IL 60601
-                            </Text>
-                            <Flex
-                            gap='4'
-                            >
-                                <Flex
-                                align={'center'}
-                                justify={'center'}
-                                gap={'2'}
-                                >
-                                    <Icon fontSize='2xl' as={BiBed} />
-                                    <Text
-                                    fontWeight={'600'}
-                                    >
-                                        3
-                                    </Text>
-                                </Flex>
-                                <Flex
-                                align={'center'}
-                                justify={'center'}
-                                gap={'2'}
-                                >
-                                    <Icon fontSize='2xl' as={BiBath} />
-                                    <Text
-                                    fontWeight={'600'}
-                                    >
-                                        3
-                                    </Text>
-                                </Flex>
-                                <Flex
-                                align={'center'}
-                                justify={'center'}
-                                gap={'2'}
-                                >
-                                    <Icon fontSize='2xl' as={BiCar} />
-                                    <Text
-                                    fontWeight={'600'}
-                                    >
-                                        2
-                                    </Text>
-                                </Flex>
-                                <Flex
-                                align={'center'}
-                                justify={'center'}
-                                gap={'2'}
-                                >
-                                    <Icon fontSize='2xl' as={PiPawPrintBold} />
-                                    <Text
-                                    fontWeight={'600'}
-                                    >
-                                        0
-                                    </Text>
-                                </Flex>
-                            </Flex>
-                        </Flex>
-                    </Flex>
+
+                    <MapOverlay />
+                    
+                    
                 </Flex>
+                </StickyBox>
+                <StickyBox>
+
                 
-                <Box
-                w='full'
-                >
-                    <Map
-                    minH='90vh'
-                    />
-                </Box>
+                    <Box
+                    top={'0'}
+                    w='full'
+                    zIndex={'-1'}
+                    >
+                        <Map
+                        minH='90vh'
+                        />
+                    </Box>
+                </StickyBox>
+                
                 
             </Box>
         </Flex>
