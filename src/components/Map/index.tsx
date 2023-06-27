@@ -32,7 +32,7 @@ export default function Map (props: any) {
         w='full'
         h='fit-content'
         maxH={'100vh'}
-        zIndex={-1}
+        zIndex={1}
         color={'var(--text-secondary)'}
         userSelect={'none'}
         

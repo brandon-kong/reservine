@@ -29,6 +29,12 @@ const theme = extendTheme({
       100: 'var(--text-primary)',
       200: 'var(--text-primary)',
       300: 'var(--text-primary)',
+      400: 'var(--text-primary)',
+      500: 'var(--text-primary)',
+      600: 'var(--text-primary)',
+      700: 'var(--text-primary)',
+      800: 'var(--text-primary)',
+      900: 'var(--text-primary)',
     }
   },
   config

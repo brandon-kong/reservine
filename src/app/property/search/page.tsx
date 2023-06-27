@@ -101,7 +101,8 @@ export default function FindProperty () {
                     
                 </Flex>
                 </StickyBox>
-                <StickyBox>
+                <StickyBox
+                >
 
                 
                     <Box
@@ -110,7 +111,7 @@ export default function FindProperty () {
                     zIndex={'-1'}
                     >
                         <Map
-                        minH='90vh'
+                        minH='100vh'
                         />
                     </Box>
                 </StickyBox>

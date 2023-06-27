@@ -15,6 +15,7 @@ import { LuUtensilsCrossed } from "react-icons/lu";
 import { TbWashMachine } from "react-icons/tb";
 import { MdOutlineBalcony, MdSmokeFree, MdOutlineCleaningServices } from "react-icons/md";
 
+
 import { StarIcon } from "@chakra-ui/icons";
 
 const Overview = {
@@ -45,11 +46,15 @@ import ReviewCard from "@/components/ReviewCard";
 import ReserveCard from "@/components/ReserveCard";
 import StickyBox from "react-sticky-box";
 
+import Link from "next/link";
+
 type Params = {
     params: {
         id: string
     }
 }
+
+
 
 function BetterGridItem ({ children, ...props }: any) {
     return (
@@ -152,6 +157,16 @@ export default function PropertyDashboard ({ params }: Params) {
                             color={'var(--text-secondary)'}
                             >
                                 100 Smart Street, Chicago, IL 60601
+                            </Text>
+                            <Text
+                            color={'var(--text-secondary)'}
+                            fontSize={'sm'}
+                            >
+                                Posted by <Text as={Link} href={'/account'}
+                                _hover={{
+                                    textDecoration: 'underline',
+                                }}
+                                color={'var(--color-primary)'}>John Doe</Text>
                             </Text>
                         </Flex>
                         <Flex
@@ -326,6 +341,8 @@ export default function PropertyDashboard ({ params }: Params) {
                          <Box>
                             <Map 
                             aspectRatio={16/9}
+                            rounded={'lg'}
+                            overflow={'hidden'}
                             />
                          </Box>
                          

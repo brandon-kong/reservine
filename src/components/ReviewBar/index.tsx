@@ -27,7 +27,7 @@ export default function ReviewBar ( props: any ) {
                 gap={'4'}
                 >
                     <Progress
-                    value={props.value}
+                    value={props.value || 75}
                     bg={'var(--gray)'}
                     size={'sm'}
                     h={'1'}

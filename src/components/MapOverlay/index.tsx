@@ -26,7 +26,7 @@ export default function MapOverlay ( props: any ) {
         transition={'all .2s ease-in-out'}
         cursor={'pointer'}
         _hover={{
-            transform: 'scale(1.1)',
+            transform: 'scale(1.05)',
         }}
         zIndex={'10'}
 
