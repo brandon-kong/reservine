@@ -5,7 +5,7 @@ import { Box } from '@chakra-ui/react'
 
 mapboxgl.accessToken = "pk.eyJ1IjoiYnJhbmRvbmtvbmciLCJhIjoiY2xqZGZlMWJwMjFtNzNlczFsNnN5Ym42OSJ9.U_Q0fLrXBTnWwLMqaoFtMw"
 
-export default function Map () {
+export default function Map (props: any) {
     const map: any = useRef(null);
     const mapContainer = useRef(null);
     const [lng, setLng] = useState(-70.9);
@@ -29,13 +29,13 @@ export default function Map () {
         flex='1'
         w='full'
         h='fit-content'
-        minH={'90vh'}
         maxH={'100vh'}
         zIndex={-1}
         color={'var(--text-secondary)'}
         userSelect={'none'}
         
         ref={mapContainer}
+        {...props}
         />
     )
 }
