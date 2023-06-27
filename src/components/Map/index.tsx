@@ -6,7 +6,7 @@ import { Box } from '@chakra-ui/react'
 mapboxgl.accessToken = "pk.eyJ1IjoiYnJhbmRvbmtvbmciLCJhIjoiY2xqZGZlMWJwMjFtNzNlczFsNnN5Ym42OSJ9.U_Q0fLrXBTnWwLMqaoFtMw"
 
 export default function Map () {
-    const map = useRef(null);
+    const map: any = useRef(null);
     const mapContainer = useRef(null);
     const [lng, setLng] = useState(-70.9);
     const [lat, setLat] = useState(42.35);
@@ -15,7 +15,7 @@ export default function Map () {
     useEffect(() => {
         if (map.current) return;
         map.current = new mapboxgl.Map({
-            container: mapContainer.current,
+            container: mapContainer.current as any,
             style: process.env.NEXT_PUBLIC_MAPBOX_STYLE,
             center: [ -87.6298, 41.8781 ],
             zoom: 14,

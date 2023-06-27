@@ -60,7 +60,7 @@ export default function Navbar() {
                 gap='10'
                 fontWeight={'600'}
                 >
-                    <ChakraLink as={Link} href='/find'>
+                    <ChakraLink as={Link} href='/property/search'>
                       Find a Property
                     </ChakraLink>
                     <ChakraLink as={Link} href='/find'>

@@ -92,6 +92,11 @@ export default function FindProperty () {
                     boxShadow={'md'}
                     h='fit-content'
                     pointerEvents={'all'}
+                    transition={'all .2s ease-in-out'}
+                    cursor={'pointer'}
+                    _hover={{
+                        transform: 'scale(1.1)',
+                    }}
                     >
                         <Image
                         src='https://www.placehold.it/200x200'
