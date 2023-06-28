@@ -38,6 +38,7 @@ export default function SplitScreen() {
     const [passwordConfirm, setPasswordConfirm] = useState('')
     const [identifierSet, setIdentifierSet] = useState(false)
     const [isReturningUser, setIsReturningUser] = useState(false)
+    const [view, setView] = useState('login')
 
     const [step, setStep] = useState(0)
 
@@ -53,8 +54,8 @@ export default function SplitScreen() {
                 emailRedirectTo: `${location.origin}/auth/callback`,
             },
        })
-       alert(identifier)
-        router.refresh()
+       setStep(step + 1)
+       setView('check-email')
     }
 
     const handleSignIn = async () => {
@@ -134,7 +135,7 @@ export default function SplitScreen() {
                     
 
                     <SlideFade
-                    in={identifierSet}>
+                    in={step === 1}>
                         <Icon 
                         rounded='full'
                         _hover={{ bg: 'var(--gray-transparent)' }}
@@ -155,6 +156,14 @@ export default function SplitScreen() {
                     }
                     
                     
+                    {
+                        view === 'check-email' ? 
+                        (
+                            <Stack>
+                                <Heading size='md' fontWeight={'700'}>Check { identifier } to continue signing up</Heading>
+                            </Stack>
+                        )
+                        :
                     <Stack as={'form'} onSubmit={submitHandler} direction={'column'} spacing={6}>
 
                         <Flex
@@ -256,6 +265,7 @@ export default function SplitScreen() {
                             <GoogleButton text='Log in with Google' />
                         </Stack>
                     </Stack>
+                    }
 
                 </Stack>
             </Flex>
