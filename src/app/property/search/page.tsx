@@ -35,13 +35,19 @@ export default function FindProperty () {
             >
                 <Flex
                 direction={'column'}
-                gap='4'
+                gap='2'
                 >
                     <Heading>
                         4 Results Found
                     </Heading>
                     <Flex
+                    as={StickyBox}
+                    bg={'white'}
                     justify={'space-between'}
+                    p={'4'}
+                    w='full'
+                    zIndex={'10'}
+                    roundedBottom={'md'}
                     >
                         <OutlineButton
                         px='10'

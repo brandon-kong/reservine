@@ -29,7 +29,7 @@ export default function ResultQueryCard() {
       w='full'
       transition='all .2s ease-in-out'
       borderWidth='1px' borderColor={'gray.300'} bg='white' color='black' borderRadius='lg' overflow='hidden'
-      _hover={{ boxShadow: 'lg', transform: 'scale(1.025)' }}
+      _hover={{ boxShadow: 'lg', transform: 'scale(1)' }}
       >
         <Image 
         src={property.imageUrl} alt={property.imageAlt} />
