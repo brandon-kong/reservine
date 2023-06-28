@@ -21,12 +21,12 @@ import PrimaryButton, { PrimaryIconButton } from '../Button';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 
 export default function FloatingLabel ( props: any ) {
+    const { errorMessage, isError, isPassword } = props
     const [show, setShow] = useState(false)
-    const [errorMessage, setErrorMessage] = useState(props.errorMessage || '')
     const handleClick = () => setShow(!show)
 
     return (
-        <FormControl isInvalid={props.isError} userSelect={'none'}>
+        <FormControl isInvalid={isError} userSelect={'none'}>
             <InputGroup>
                 <Input
                 rounded={'full'}
@@ -64,7 +64,7 @@ export default function FloatingLabel ( props: any ) {
                 </InputRightElement> : null}
                 
             </InputGroup>
-            <FormErrorMessage pl='5'>{ props.errorMessage || 'Email is invalid' }</FormErrorMessage>
+            <FormErrorMessage pl='5'>{ errorMessage || 'Email is invalid' }</FormErrorMessage>
             
             
             

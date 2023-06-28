@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
     Flex,
@@ -23,19 +23,47 @@ import OrSeperator from '@/components/OrSeperator';
 
 import { ArrowBackIcon } from '@chakra-ui/icons'
 
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+
+import { useRouter } from 'next/navigation';
+
 export default function SplitScreen() {
+
+    const router = useRouter()
     const [loading, setLoading] = useState(false)
 
     const [emailOrPhone, setEmailOrPhone] = useState('email')
-    const [emailAddress, setEmailAddress] = useState('')
     const [identifier, setIdentifier] = useState('')
     const [password, setPassword] = useState('')
+    const [passwordConfirm, setPasswordConfirm] = useState('')
     const [identifierSet, setIdentifierSet] = useState(false)
     const [isReturningUser, setIsReturningUser] = useState(false)
 
     const [step, setStep] = useState(0)
 
     const [step0EmailValid, setStep0EmailValid] = useState(true)
+
+    const supabase = createClientComponentClient()
+
+    const handleSignUp = async () => {
+       await supabase.auth.signUp({
+            email: identifier,
+            password: password,
+            options: {
+                emailRedirectTo: `${location.origin}/auth/callback`,
+            },
+       })
+       alert(identifier)
+        router.refresh()
+    }
+
+    const handleSignIn = async () => {
+        await supabase.auth.signInWithPassword({
+            email: identifier,
+            password: password,
+        })
+        router.refresh()
+    }
 
     let defaultBody = {
         grant_type: "",
@@ -61,7 +89,14 @@ export default function SplitScreen() {
                 fetchUserWithCredentials(defaultBody)
                 break;
             case 1:
-                alert('step 1')
+                if (isReturningUser) {
+                    // login
+                    handleSignIn()
+                }
+                else {
+                    // signup
+                    continueSignup()
+                }
                 break;
         }
       }
@@ -78,14 +113,18 @@ export default function SplitScreen() {
         setStep(step - 1)
       }
 
-      function nextstep() {
-        setStep(step + 1)
-      }
-
-      function toggleEmailOrPhone() {
+    function toggleEmailOrPhone() {
         setEmailOrPhone((emailOrPhone === 'email' ? 'phone' : 'email'))
         setIdentifier('')
       }
+
+    function continueSignup () {
+        if (password !== passwordConfirm) {
+            alert('Passwords do not match')
+            return
+        }
+        handleSignUp()
+    }
    
     return (
         <>
@@ -143,6 +182,7 @@ export default function SplitScreen() {
                                 <FloatingInput isDisabled={true}  value={identifier} onChange={(e: any) => setIdentifier(e.target.value)} name='identifier' label='Phone number' type='tel' />
                                 
                             ) : (
+                                
                                 emailOrPhone === 'email' ?
                                 <FloatingInput isDisabled={false} value={identifier} onChange={(e: any) => setIdentifier(e.target.value)} name='identifier' label='Email address' type='text' />
                                 :
@@ -150,12 +190,12 @@ export default function SplitScreen() {
                             )}
                             </Fade>
                             
-                            <FloatingInput onChange={(e: any) => setPassword(e.target.value)} isPassword={true} name='password' label='Password' />    
+                            <FloatingInput value={password}  onChange={(e: any) => setPassword(e.target.value)} isPassword={true} name='password' label='Password' />    
                             {
                                 isReturningUser === true ?
                                 <></>
                                 :
-                                <FloatingInput onChange={(e: any) => setPassword(e.target.value)} isPassword={true} name='password' label='Confirm password' />
+                                <FloatingInput value={passwordConfirm} onChange={(e: any) => setPasswordConfirm(e.target.value)} isPassword={true} name='password' label='Confirm password' />
                             }
                             </>
                             
