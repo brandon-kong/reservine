@@ -29,11 +29,46 @@ const Links = ['Dashboard', 'Projects', 'Team'];
 
 import { SignedInMenu, AnonymousMenu } from '../Menu/MenuList';
 
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+import { useState } from 'react';
 
 export default function Navbar() {
 
-    const loggedIn = false;
+  const router = useRouter()
+    const [loggedIn, setLoggedIn] = useState(false)
+
+    const supabase = createClientComponentClient()
+
+    async function handleLogout() {
+      alert('logging out')
+        await supabase.auth.signOut()
+        router.refresh()
+    }
+
+    supabase.auth.onAuthStateChange((event, session) => {
+        console.log(event, session)
+        if (event === 'SIGNED_IN') {
+          setLoggedIn(true)
+        }
+        else {
+          setLoggedIn(false)
+        }
+    })
+
+    const session = supabase.auth.getSession()
+    session.then((res) => {
+      console.log(res)
+      if (res.data.session) {
+        setLoggedIn(true)
+      }
+      else {
+        setLoggedIn(false)
+      }
+    })
   return (
     <>
         
@@ -91,7 +126,7 @@ export default function Navbar() {
                 <Avatar/>
               </MenuButton>
               {
-                    loggedIn ? <SignedInMenu /> : <AnonymousMenu />
+                    loggedIn ? <SignedInMenu logout={handleLogout} /> : <AnonymousMenu />
               }
             </Menu>
         </Flex>

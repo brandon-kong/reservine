@@ -25,12 +25,12 @@ import { ArrowBackIcon } from '@chakra-ui/icons'
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
-import { useRouter } from 'next/navigation';
+import { useRouter, redirect } from 'next/navigation';
 import PhoneOTP from '@/components/PhoneOTP';
 
 import PhoneNumberInput from '@/components/PhoneInput';
 
-export default function SplitScreen() {
+export default function LoginPage() {
 
     const router = useRouter()
     const [loading, setLoading] = useState(false)
@@ -106,7 +106,6 @@ export default function SplitScreen() {
         client_secret: "",
       };
 
-
       function submitHandler (e: any) {
         e.preventDefault()
         switch (step) {
@@ -135,7 +134,7 @@ export default function SplitScreen() {
 
       function fetchUserWithCredentials (body: any) {
         setLoading(true)
-        setIsReturningUser(false)
+        setIsReturningUser(true)
         setIdentifierSet(true)
         setLoading(false)
         setStep(1)
@@ -157,7 +156,13 @@ export default function SplitScreen() {
         }
         handleSignUp()
     }
-   
+
+    supabase.auth.getSession().then((res) => {
+        if (res.data.session) {
+            router.push('/')
+        }
+    })
+
     return (
         <>
         <Stack bg={'white'} color='var(--text-primary)' h={'100vh'} direction={{ base: 'column', md: 'row' }}>

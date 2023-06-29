@@ -6,28 +6,40 @@ import {
     Text,
     PinInput,
     PinInputField,
+    Spinner,
 } from '@chakra-ui/react';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
+import { useRouter } from 'next/navigation';
+
 export default function PhoneOTP( props: any) {
     const supabase = createClientComponentClient()
+    const router = useRouter()
 
+    const [loading, setLoading] = useState(false)
     const [otp, setOtp] = useState('')
     const [error, setError] = useState('')
     const [resendCountdown, setResendCountdown] = useState(0)
 
     async function handleSubmit(value: string) {
 
-        const { error } = await supabase.auth.verifyOtp({
+        setLoading(true)
+        const { session, error } = await supabase.auth.verifyOtp({
             phone: props.phoneNumber,
             token: value,
             type: 'sms'
         })
 
         if (error) {
+            setLoading(false)
             setError(error.message)
         }
+        else {
+            router.refresh()
+            console.log(session)
+        }
+        
     }
 
     async function resendCode() {
@@ -69,7 +81,8 @@ export default function PhoneOTP( props: any) {
             direction={'row'}
             w='full'
             >
-                <PinInput onComplete={handleSubmit}  placeholder={''} focusBorderColor='primary.100' colorScheme={'gray'} size='lg' variant='outline' type='number' otp>
+                
+                <PinInput isDisabled={loading} onComplete={handleSubmit}  placeholder={''} focusBorderColor='primary.100' colorScheme={'gray'} size='lg' variant='outline' type='number' otp>
                     {
                         [...Array(6)].map((_, i) => (
                             <PinInputField key={i} bg={'var(--gray)'} />
@@ -79,6 +92,7 @@ export default function PhoneOTP( props: any) {
                 </PinInput>
             </Stack>
             {
+                loading ? <Spinner /> :
                 resendCountdown > 0 ?
                 <Text>
                     Resend code in {resendCountdown}s

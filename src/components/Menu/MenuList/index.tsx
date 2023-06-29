@@ -39,9 +39,9 @@ export function SignedInMenu ( props: any ) {
                 <MenuGroup
                 fontWeight={'500'}
                 >
-                    <MenuItem fontWeight={500}>Account</MenuItem>
+                    <MenuItem as={Link} href={'/account'} fontWeight={500}>Account</MenuItem>
                     <MenuItem fontWeight={500}>Help Center</MenuItem>
-                    <MenuItem fontWeight={500}>Logout</MenuItem>
+                    <MenuItem onClick={props.logout} fontWeight={500}>Logout</MenuItem>
                 </MenuGroup>
               </MenuList>
     )
