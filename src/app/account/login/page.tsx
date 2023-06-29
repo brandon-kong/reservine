@@ -26,6 +26,9 @@ import { ArrowBackIcon } from '@chakra-ui/icons'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
 import { useRouter } from 'next/navigation';
+import PhoneOTP from '@/components/PhoneOTP';
+
+import PhoneNumberInput from '@/components/PhoneInput';
 
 export default function SplitScreen() {
 
@@ -40,6 +43,8 @@ export default function SplitScreen() {
     const [isReturningUser, setIsReturningUser] = useState(false)
     const [view, setView] = useState('login')
 
+    const [country, setCountry] = useState('USA')
+
     const [step, setStep] = useState(0)
 
     const [step0EmailValid, setStep0EmailValid] = useState(true)
@@ -47,15 +52,28 @@ export default function SplitScreen() {
     const supabase = createClientComponentClient()
 
     const handleSignUp = async () => {
-       await supabase.auth.signUp({
-            email: identifier,
-            password: password,
-            options: {
-                emailRedirectTo: `${location.origin}/auth/callback`,
-            },
-       })
+        if (emailOrPhone === 'email') {
+            await supabase.auth.signUp({
+                    email: identifier,
+                    password: password,
+                    options: {
+                        emailRedirectTo: `${location.origin}/auth/callback`,
+                    },
+            })
+        }
+        else {
+            await supabase.auth.signUp({
+                phone: identifier,
+                password: password
+            })
+        }
+       if (emailOrPhone === 'email') {
+        setView('check-email')
+       }
+       else {
+        setView('check-phone')
+       }
        setStep(step + 1)
-       setView('check-email')
     }
 
     const handleSignIn = async () => {
@@ -129,6 +147,7 @@ export default function SplitScreen() {
    
     return (
         <>
+        { identifier }
         <Stack bg={'white'} color='var(--text-primary)' h={'100vh'} direction={{ base: 'column', md: 'row' }}>
             <Flex p={8} flex={1} align={'center'} justify={'center'}>
                 <Stack px={{ base: '8', md: '8' }} spacing={10} w={'full'} maxW={'md'}>
@@ -156,6 +175,7 @@ export default function SplitScreen() {
                     }
                     
                     
+                    
                     {
                         view === 'check-email' ? 
                         (
@@ -164,7 +184,14 @@ export default function SplitScreen() {
                             </Stack>
                         )
                         :
-                    <Stack as={'form'} onSubmit={submitHandler} direction={'column'} spacing={6}>
+                        (
+                            view === 'check-phone' ?
+                            (
+                                <PhoneOTP phoneNumber={identifier} />
+                            )
+                            :
+                            (
+                                <Stack as={'form'} onSubmit={submitHandler} direction={'column'} spacing={6}>
 
                         <Flex
                         direction={'column'}
@@ -186,25 +213,41 @@ export default function SplitScreen() {
                               { isReturningUser === true ? (
                                 
                                 emailOrPhone === 'email' ?
-                                <FloatingInput isDisabled={true} value={identifier} onChange={(e: any) => setIdentifier(e.target.value)} name='identifier' label='Email address' type='text' />
+                                <FloatingInput isDisabled={true} value={identifier} onChange={(e: any) => setIdentifier(e)} name='identifier' label='Email address' type='text' />
                                 :
-                                <FloatingInput isDisabled={true}  value={identifier} onChange={(e: any) => setIdentifier(e.target.value)} name='identifier' label='Phone number' type='tel' />
+                                <>
+                                
+                                {/*<FloatingInput isDisabled={true}  value={identifier} onChange={(e: any) => setIdentifier(e)} name='identifier' label='Phone number' type='tel' />*/}
+                                <PhoneNumberInput
+                                value={identifier}
+                                onChange={(e: any) => setIdentifier(e)}
+                                placeholder={'Phone number'}
+                                country={country}
+                                onCountryChangeProp={(e: any) => setCountry(e)}
+                                />
+                                </>
                                 
                             ) : (
                                 
                                 emailOrPhone === 'email' ?
-                                <FloatingInput isDisabled={false} value={identifier} onChange={(e: any) => setIdentifier(e.target.value)} name='identifier' label='Email address' type='text' />
+                                <FloatingInput isDisabled={false} value={identifier} onChange={(e: any) => {alert(e);setIdentifier(e)}} name='identifier' label='Email address' type='text' />
                                 :
-                                <FloatingInput isDisabled={false}  value={identifier} onChange={(e: any) => setIdentifier(e.target.value)} name='identifier' label='Phone number' type='tel' />
+                                <PhoneNumberInput
+                                value={identifier}
+                                onChange={(e: any) => setIdentifier(e)}
+                                placeholder={'Phone number'}
+                                country={country}
+                                onCountryChangeProp={(e: any) => setCountry(e)}
+                                />
                             )}
                             </Fade>
                             
-                            <FloatingInput value={password}  onChange={(e: any) => setPassword(e.target.value)} isPassword={true} name='password' label='Password' />    
+                            <FloatingInput value={password}  onChange={(e: any) => setPassword(e)} isPassword={true} name='password' label='Password' />    
                             {
                                 isReturningUser === true ?
                                 <></>
                                 :
-                                <FloatingInput value={passwordConfirm} onChange={(e: any) => setPasswordConfirm(e.target.value)} isPassword={true} name='password' label='Confirm password' />
+                                <FloatingInput value={passwordConfirm} onChange={(e: any) => setPasswordConfirm(e)} isPassword={true} name='password' label='Confirm password' />
                             }
                             </>
                             
@@ -212,9 +255,15 @@ export default function SplitScreen() {
                             (
                                 
                                 emailOrPhone === 'email' ?
-                                <FloatingInput value={identifier} isError={!step0EmailValid} errorMessage={'Email is invalid'} onChange={(e: any) => setIdentifier(e.target.value)} name='identifier' label='Email address' type='text' />
+                                <FloatingInput value={identifier} isError={!step0EmailValid} errorMessage={'Email is invalid'} onChange={(e: any) => setIdentifier(e)} name='identifier' label='Email address' type='text' />
                                 :
-                                <FloatingInput value={identifier} onChange={(e: any) => setIdentifier(e.target.value)} name='identifier' label='Phone number' type='tel' />
+                                <PhoneNumberInput
+                                value={identifier}
+                                onChange={(e: any) => setIdentifier(e)}
+                                placeholder={'Phone number'}
+                                country={country}
+                                onCountryChangeProp={(e: any) => setCountry(e)}
+                                />
                                 
                             )
                             
@@ -265,6 +314,9 @@ export default function SplitScreen() {
                             <GoogleButton text='Log in with Google' />
                         </Stack>
                     </Stack>
+                            )
+                        )
+                    
                     }
 
                 </Stack>

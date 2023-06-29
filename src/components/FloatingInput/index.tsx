@@ -21,6 +21,8 @@ import PrimaryButton, { PrimaryIconButton } from '../Button';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 
 export default function FloatingLabel ( props: any ) {
+    const { onChange, ...rest } = props
+
     const { errorMessage, isError, isPassword } = props
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
@@ -31,7 +33,7 @@ export default function FloatingLabel ( props: any ) {
                 <Input
                 rounded={'full'}
                 autoComplete='off'
-                onChange={props.onChange}
+                onChange={(e: any) => onChange(e.target.value)}
                 variant={'filled'}
                 bg={'var(--gray)'}
                 type={props.isPassword === true ? (show ? 'text' : 'password') : props.type}
@@ -56,7 +58,7 @@ export default function FloatingLabel ( props: any ) {
                 _placeholder={{
                     color: 'var(--text-primary)'
                 }}
-                {...props}
+                {...rest}
                 />
                 {props.isPassword === true ? 
                 <InputRightElement h={'full'} width='4rem'>

@@ -1,5 +1,6 @@
 import { extendTheme, type ThemeConfig } from '@chakra-ui/react'
 import { checkboxTheme } from './Checkbox'
+import pinInputFieldTheme from './PinInputField'
 import Menu from './Menu'
 
 // 2. Add your color mode config
@@ -15,6 +16,7 @@ const theme = extendTheme({
   }, 
   components: {
     Checkbox: checkboxTheme,
+    PinInputField: pinInputFieldTheme,
   },
   styles: {
     global: {
