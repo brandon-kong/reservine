@@ -35,7 +35,7 @@ export default function PhoneOTP( props: any) {
 
         const { error } = await supabase.auth.resend({
             type: 'sms',
-            phone: props.phoneNumber.replace(/\s/g, ''),
+            phone: props.phoneNumber,
         })
 
         setResendCountdown(30)

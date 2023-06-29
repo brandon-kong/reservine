@@ -54,19 +54,27 @@ export default function SplitScreen() {
 
     const handleSignUp = async () => {
         if (emailOrPhone === 'email') {
-            await supabase.auth.signUp({
+            const { error } = await supabase.auth.signUp({
                     email: identifier,
                     password: password,
                     options: {
                         emailRedirectTo: `${location.origin}/auth/callback`,
-                    },
+                },
             })
+            if (error) {
+                alert(error.message)
+                return;
+            }
         }
         else {
-            await supabase.auth.signUp({
+            const { error } = await supabase.auth.signUp({
                 phone: identifier,
                 password: password
             })
+            if (error) {
+                alert(error.message)
+                return;
+            }
         }
        if (emailOrPhone === 'email') {
         setView('check-email')
@@ -78,10 +86,14 @@ export default function SplitScreen() {
     }
 
     const handleSignIn = async () => {
-        await supabase.auth.signInWithPassword({
+        const { error } = await supabase.auth.signInWithPassword({
             email: identifier,
             password: password,
         })
+        if (error) {
+            alert(error.message)
+            return;
+        }
         router.refresh()
     }
 
@@ -148,7 +160,6 @@ export default function SplitScreen() {
    
     return (
         <>
-        { identifier }
         <Stack bg={'white'} color='var(--text-primary)' h={'100vh'} direction={{ base: 'column', md: 'row' }}>
             <Flex p={8} flex={1} align={'center'} justify={'center'}>
                 <Stack px={{ base: '8', md: '8' }} spacing={10} w={'full'} maxW={'md'}>

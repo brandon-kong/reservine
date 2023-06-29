@@ -55,7 +55,7 @@ export default function PhoneNumberInput({
   };
 
   const onPhoneNumberChange = (e: any) => {
-    let value = e.target.value;
+    let value = e;
     let parsedNumber = new AsYouType().input(`${countryCode}${value}`);
 
     setNumber(value);
@@ -98,7 +98,7 @@ export default function PhoneNumberInput({
           )}
         </Flex>
       </InputLeftElement>
-      <Input
+      <FloatingLabel
 
         pl="6rem"
         type="tel"
