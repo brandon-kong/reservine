@@ -36,6 +36,7 @@ export default function SplitScreen() {
     const [loading, setLoading] = useState(false)
 
     const [emailOrPhone, setEmailOrPhone] = useState('email')
+    const [phone, setPhone] = useState('')
     const [identifier, setIdentifier] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirm, setPasswordConfirm] = useState('')
@@ -219,7 +220,7 @@ export default function SplitScreen() {
                                 
                                 {/*<FloatingInput isDisabled={true}  value={identifier} onChange={(e: any) => setIdentifier(e)} name='identifier' label='Phone number' type='tel' />*/}
                                 <PhoneNumberInput
-                                value={identifier}
+                                value={phone}
                                 onChange={(e: any) => setIdentifier(e)}
                                 placeholder={'Phone number'}
                                 country={country}
@@ -233,7 +234,7 @@ export default function SplitScreen() {
                                 <FloatingInput isDisabled={false} value={identifier} onChange={(e: any) => {alert(e);setIdentifier(e)}} name='identifier' label='Email address' type='text' />
                                 :
                                 <PhoneNumberInput
-                                value={identifier}
+                                value={phone}
                                 onChange={(e: any) => setIdentifier(e)}
                                 placeholder={'Phone number'}
                                 country={country}
@@ -258,11 +259,12 @@ export default function SplitScreen() {
                                 <FloatingInput value={identifier} isError={!step0EmailValid} errorMessage={'Email is invalid'} onChange={(e: any) => setIdentifier(e)} name='identifier' label='Email address' type='text' />
                                 :
                                 <PhoneNumberInput
-                                value={identifier}
+                                value={phone}
                                 onChange={(e: any) => setIdentifier(e)}
                                 placeholder={'Phone number'}
                                 country={country}
                                 onCountryChangeProp={(e: any) => setCountry(e)}
+                                onValChange={(e: any) => setPhone(e)}
                                 />
                                 
                             )

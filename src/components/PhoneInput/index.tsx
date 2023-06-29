@@ -21,6 +21,7 @@ export default function PhoneNumberInput({
   options,
   onChange,
   onCountryChangeProp,
+  onValChange,
   placeholder,
   ...rest
 }: any) {
@@ -54,28 +55,19 @@ export default function PhoneNumberInput({
   };
 
   const onPhoneNumberChange = (e: any) => {
-    let value = e;
+    let value = e.target.value;
     let parsedNumber = new AsYouType().input(`${countryCode}${value}`);
 
     setNumber(value);
     onChange(parsedNumber);
+    onValChange(value);
   };
-
-  function update() {
-    let parsedNumber = new AsYouType().input(`${countryCode}${number}`);
-    setNumber(parsedNumber);
-  }
-
-  useEffect(() => {
-    update()
-  }, [value])
-    
 
   return (
     <InputGroup 
      {...rest}>
       
-      <InputLeftElement pl='2' h='full' width="4rem">
+      <InputLeftElement pl='2' h='full' width="fit-content">
         <Select
         defaultValue={'USA'}
           w={'full'}
@@ -95,18 +87,20 @@ export default function PhoneNumberInput({
             <option value={option.value}>{option.label}</option>
           ))}
         </Select>
-        <Flex p={2} width="100%" alignItems="center">
+        <Flex p={2} width="100%" pr={'4'} alignItems="center">
           {selectedCountry ? (
-            <Box width="100%" flex={1}>
+            <Box as={Flex} gap={'3'} width="100%" flex={1}>
               <Flag code={selectedCountry || ""} />
+              { countryCode }
             </Box>
           ) : (
             <Icon name="phone" />
           )}
         </Flex>
       </InputLeftElement>
-      <FloatingLabel
-        pl="5rem"
+      <Input
+
+        pl="6rem"
         type="tel"
         value={number}
         pattern="[0-9]"

@@ -15,23 +15,44 @@ export default function PhoneOTP( props: any) {
 
     const [otp, setOtp] = useState('')
     const [error, setError] = useState('')
+    const [resendCountdown, setResendCountdown] = useState(0)
 
-    async function handleSubmit() {
+    async function handleSubmit(value: string) {
 
         const { error } = await supabase.auth.verifyOtp({
             phone: props.phoneNumber,
-            token: otp,
+            token: value,
             type: 'sms'
         })
-    }
 
-    function onChange(e: any) {
-        setOtp(e.target.value)
-
-        if (e.target.value.length === 6) {
-            handleSubmit()
+        if (error) {
+            setError(error.message)
         }
     }
+
+    async function resendCode() {
+        if (resendCountdown > 0) return;
+
+        const { error } = await supabase.auth.resend({
+            type: 'sms',
+            phone: props.phoneNumber.replace(/\s/g, ''),
+        })
+
+        setResendCountdown(30)
+        
+        if (error) {
+            setError(error.message)
+        }
+
+        const interval = setInterval(() => {
+            setResendCountdown(resendCountdown - 1)
+        }, 1000)
+
+        setTimeout(() => {
+            clearInterval(interval)
+        }, 30000)
+    }
+
     return (
         <Stack
         spacing={'6'}
@@ -48,7 +69,7 @@ export default function PhoneOTP( props: any) {
             direction={'row'}
             w='full'
             >
-                <PinInput onChange={(e: any) => onChange}  placeholder={''} focusBorderColor='primary.100' colorScheme={'gray'} size='lg' variant='outline' type='number' otp>
+                <PinInput onComplete={handleSubmit}  placeholder={''} focusBorderColor='primary.100' colorScheme={'gray'} size='lg' variant='outline' type='number' otp>
                     {
                         [...Array(6)].map((_, i) => (
                             <PinInputField key={i} bg={'var(--gray)'} />
@@ -57,6 +78,17 @@ export default function PhoneOTP( props: any) {
                     }
                 </PinInput>
             </Stack>
+            {
+                resendCountdown > 0 ?
+                <Text>
+                    Resend code in {resendCountdown}s
+                </Text> : (
+                <Text>
+                    Didn't receive the code? <Text as='span' color='primary.100' cursor='pointer' onClick={resendCode}>Resend</Text>
+                </Text>   
+                )
+            }
+            <Text color='red.500' fontSize='sm'>{error}</Text>
             
         </Stack>
     )
