@@ -50,7 +50,6 @@ export default function Navbar() {
     }
 
     supabase.auth.onAuthStateChange((event, session) => {
-        console.log(event, session)
         if (event === 'SIGNED_IN') {
           setLoggedIn(true)
         }

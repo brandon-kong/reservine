@@ -29,6 +29,7 @@ import { useRouter, redirect } from 'next/navigation';
 import PhoneOTP from '@/components/PhoneOTP';
 
 import PhoneNumberInput from '@/components/PhoneInput';
+import { userAlreadyExists } from '@/util/supabase';
 
 export default function LoginPage() {
 
@@ -134,7 +135,6 @@ export default function LoginPage() {
 
       function fetchUserWithCredentials (body: any) {
         setLoading(true)
-        setIsReturningUser(true)
         setIdentifierSet(true)
         setLoading(false)
         setStep(1)
@@ -162,6 +162,13 @@ export default function LoginPage() {
             router.push('/')
         }
     })
+
+    useEffect(() => {
+        const userExists = userAlreadyExists( { type: emailOrPhone, [emailOrPhone]: identifier } )
+        userExists.then((res) => {
+            setIsReturningUser(res)
+        })
+    }, [identifier])
 
     return (
         <>
